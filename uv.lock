@@ -157,6 +157,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "apache-airflow-providers-cncf-kubernetes" },
+    { name = "apache-airflow-providers-mongo" },
     { name = "beautifulsoup4" },
     { name = "httpx" },
     { name = "pandas" },
@@ -172,6 +173,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "apache-airflow-providers-cncf-kubernetes", specifier = ">=10.19.0" },
+    { name = "apache-airflow-providers-mongo", specifier = ">=5.4.0" },
     { name = "beautifulsoup4", specifier = ">=4.15.0" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "pandas", specifier = ">=3.0.3" },
@@ -374,6 +376,21 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/3c/5c/4d9b74ce17e2bc65c5c7ee334081260b93b6c0e1fc97acb06ce6691eb0af/apache_airflow_providers_common_sql-2.0.2.tar.gz", hash = "sha256:365af5fe6fbed3f1125f81222df29b4fb0e4acad2624b2f3ad4fa6a717508eab", size = 142181, upload-time = "2026-07-10T16:28:28.778Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8a/e2/ba4b4f38ecf8cf40bcad3aa7ca2388b29acf9e266d53405b1be3f154b3a7/apache_airflow_providers_common_sql-2.0.2-py3-none-any.whl", hash = "sha256:a7f919441b0ab2d013f8c9851b4bc7fe4fb85249faf0a2d67f6b5867d2b8acab", size = 96267, upload-time = "2026-07-10T16:27:56.629Z" },
+]
+
+[[package]]
+name = "apache-airflow-providers-mongo"
+version = "5.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "apache-airflow" },
+    { name = "apache-airflow-providers-common-compat" },
+    { name = "dnspython" },
+    { name = "pymongo" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f2/33/2cc8026264ac58687870e8ba56ddf1bb05667c5c11d6fe500146950604e7/apache_airflow_providers_mongo-5.4.0.tar.gz", hash = "sha256:d4ec2b4f04c83c2ad289d7e96d99a7950f2da57ac47fb7eb57324eef3792810e", size = 36008, upload-time = "2026-05-23T12:32:43.723Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8b/a5/b743c393439a1ad2df1ae0ccf546d4c906b4eb4a28ddb33fd2330a20a925/apache_airflow_providers_mongo-5.4.0-py3-none-any.whl", hash = "sha256:fbc8ee6e03224b8a6f86f2b6372d4ad2fce910e8482ec7358df2e87f164709ca", size = 20230, upload-time = "2026-05-23T12:31:45.227Z" },
 ]
 
 [[package]]

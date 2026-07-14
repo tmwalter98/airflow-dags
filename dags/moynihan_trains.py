@@ -19,7 +19,7 @@ default_args = {
     "retry_delay": timedelta(minutes=5),
 }
 
-MONGO_CONN_ID = "mongo_default"
+MONGO_CONN_ID = "mongo_trains"
 MONGO_DB = "trains"
 MONGO_COLLECTION = "moynihan_board"
 
@@ -122,30 +122,28 @@ def moynihan_trains():
         from datetime import datetime
 
         import pytz
-        from airflow.hooks.base import BaseHook
-        from pymongo import MongoClient
+        from airflow.providers.mongo.hooks.mongo import MongoHook
 
-        conn = BaseHook.get_connection(MONGO_CONN_ID)
-        with MongoClient(conn.get_uri()) as client:
-            col = client[MONGO_DB][MONGO_COLLECTION]
-            fetched_at = datetime.now(tz=pytz.utc)
-            docs = [{"fetched_at": fetched_at.isoformat(), **r} for r in records]
-            if docs:
-                col.insert_many(docs)
+        hook = MongoHook(mongo_conn_id="mongodb_trains")
+        client = hook.get_conn()
+        col = client[MONGO_DB][MONGO_COLLECTION]
+        fetched_at = datetime.now(tz=pytz.utc)
+        docs = [{"fetched_at": fetched_at.isoformat(), **r} for r in records]
+        if docs:
+            col.insert_many(docs)
 
     @task()
     def get_moynihan_status() -> list[dict]:
-        from airflow.hooks.base import BaseHook
-        from pymongo import MongoClient
+        from airflow.providers.mongo.hooks.mongo import MongoHook
 
-        conn = BaseHook.get_connection(MONGO_CONN_ID)
-        with MongoClient(conn.get_uri()) as client:
-            col = client[MONGO_DB][MONGO_COLLECTION]
-            latest = col.find_one(sort=[("fetched_at", -1)])
-            if not latest:
-                return []
-            cursor = col.find({"fetched_at": latest["fetched_at"]}, {"_id": 0})
-            return list(cursor)
+        hook = MongoHook(mongo_conn_id="mongodb_trains")
+        client = hook.get_conn()
+        col = client[MONGO_DB][MONGO_COLLECTION]
+        latest = col.find_one(sort=[("fetched_at", -1)])
+        if not latest:
+            return []
+        cursor = col.find({"fetched_at": latest["fetched_at"]}, {"_id": 0})
+        return list(cursor)
 
     save_to_mongo(fetch_board()) >> get_moynihan_status()
 
