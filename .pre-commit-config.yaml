@@ -1,0 +1,17 @@
+repos:
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # uv version.
+    rev: 0.11.28
+    hooks:
+      - id: uv-lock
+      # Compile requirements
+      - id: uv-export
+        args: [ "--frozen", "--output-file=requirements.txt", "--quiet", "--no-dev" ]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.21
+    hooks:
+      # Run the linter and auto-fixable issues
+      - id: ruff
+        args: [ --fix ]
+      # Run the code formatter
+      - id: ruff-format

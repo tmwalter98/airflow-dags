@@ -16,9 +16,7 @@ def dagbag():
 
 
 def test_no_import_errors(dagbag):
-    assert not dagbag.import_errors, (
-        f"DAG import errors: {dagbag.import_errors}"
-    )
+    assert not dagbag.import_errors, f"DAG import errors: {dagbag.import_errors}"
 
 
 def test_at_least_one_dag(dagbag):

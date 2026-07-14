@@ -27,7 +27,6 @@ def example_k8s_etl():
     @task()
     def extract() -> dict:
         """Pull raw data. Heavy imports are deferred inside the function."""
-        import json
 
         # In practice this would call an API or read from a database.
         # `logical_date` is available via the task context in Airflow 3.0.
@@ -37,10 +36,7 @@ def example_k8s_etl():
     @task()
     def transform(raw: dict) -> list[dict]:
         """Clean and reshape extracted data."""
-        return [
-            {"user_id": u["id"], "username": u["name"].lower()}
-            for u in raw["users"]
-        ]
+        return [{"user_id": u["id"], "username": u["name"].lower()} for u in raw["users"]]
 
     from airflow.providers.cncf.kubernetes.operators.pod import (
         KubernetesPodOperator,
