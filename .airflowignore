@@ -1,0 +1,5 @@
+^tests/
+^include/
+^plugins/
+^README
+^requirements\.txt
