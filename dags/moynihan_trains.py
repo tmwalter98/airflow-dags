@@ -51,13 +51,22 @@ def moynihan_trains():
                     timeout=30.0,
                     headers={
                         "accept": "application/json, text/javascript, */*; q=0.01",
+                        "accept-language": "en-US,en;q=0.9",
+                        "cache-control": "no-cache",
                         "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "dnt": "1",
                         "origin": "https://moynihantrainhall.nyc",
+                        "pragma": "no-cache",
+                        "priority": "u=1, i",
                         "referer": "https://moynihantrainhall.nyc/transportation/",
-                        "user-agent": (
-                            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
-                        ),
+                        "sec-ch-ua": '"Not;A=Brand";v="8", "Chromium";v="150", "Google Chrome";v="150"',
+                        "sec-ch-ua-mobile": "?0",
+                        "sec-ch-ua-platform": '"macOS"',
+                        "sec-fetch-dest": "empty",
+                        "sec-fetch-mode": "cors",
+                        "sec-fetch-site": "same-origin",
+                        "sec-gpc": "1",
+                        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
                         "x-requested-with": "XMLHttpRequest",
                     },
                     event_hooks={"response": [self._raise_for_status]},
