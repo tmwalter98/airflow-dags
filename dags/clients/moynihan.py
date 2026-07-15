@@ -50,5 +50,16 @@ class MoynihanTrainHall(httpx.Client):
             logger.error(response.headers)
 
     def get_train_board(self) -> dict[str, str]:
-        res = self.post("/wp-admin/admin-ajax.php", data={"action": "ajax_amtrak_refresh"})
+        req = self.build_request(method="POST", url="/wp-admin/admin-ajax.php", data={"action": "ajax_amtrak_refresh"})
+        req.headers.pop("Accept-Encoding")
+        # req.headers.pop("content-length")
+        res = self.send(request=req)
+        for k, v in req.headers.items():
+            print(k, v)
+        # res = self.post("/wp-admin/admin-ajax.php", data={"action": "ajax_amtrak_refresh"})
+        logger.error(res.http_version)
         return res.json()
+
+
+client = MoynihanTrainHall()
+res = client.get_train_board()
