@@ -45,6 +45,7 @@ class MoynihanTrainHall(httpx.Client):
             response.raise_for_status()
         except HTTPStatusError:
             response.read()
+            logger.error(response.request.url)
             logger.error(response.request.headers)
             logger.error(response.content)
             logger.error(response.headers)
