@@ -9,6 +9,7 @@ this DAG effectively produces what that endpoint serves.
 
 from __future__ import annotations
 
+import logging
 from datetime import datetime, timedelta
 
 from airflow.sdk import dag, task
@@ -22,6 +23,7 @@ default_args = {
 MONGO_CONN_ID = "mongo_trains"
 MONGO_DB = "trains"
 MONGO_COLLECTION = "moynihan_board"
+logger = logging.getLogger(__name__)
 
 
 @dag(
@@ -77,8 +79,8 @@ def moynihan_trains():
                 try:
                     response.raise_for_status()
                 except RequestError:
-                    print(response.content)
-                    print(response.headers)
+                    logger.error(response.content)
+                    logger.error(response.headers)
 
             def get_train_board(self) -> dict[str, str]:
                 res = self.post("/wp-admin/admin-ajax.php", data={"action": "ajax_amtrak_refresh"})
