@@ -45,7 +45,7 @@ def moynihan_trains():
         import pandas as pd
         import pytz
         from bs4 import BeautifulSoup
-        from httpx import RequestError
+        from httpx import HTTPStatusError
 
         class MoynihanTrainHall(httpx.Client):
             def __init__(self):
@@ -78,7 +78,7 @@ def moynihan_trains():
             def _raise_for_status(self, response: httpx.Response) -> None:
                 try:
                     response.raise_for_status()
-                except RequestError:
+                except HTTPStatusError:
                     logger.error(response.content)
                     logger.error(response.headers)
 
