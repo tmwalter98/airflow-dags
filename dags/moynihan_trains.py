@@ -79,6 +79,7 @@ def moynihan_trains():
                 try:
                     response.raise_for_status()
                 except HTTPStatusError:
+                    response.read()
                     logger.error(response.content)
                     logger.error(response.headers)
 
