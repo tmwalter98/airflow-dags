@@ -16,6 +16,7 @@ from airflow.sdk import dag, task
 MONGO_CONN_ID = "mongo_trains"
 MONGO_DB = "trains"
 MONGO_COLLECTION = "moynihan_board"
+UPDATE_KEYS = ["board", "train_number", "train_name", "destination", "time", "status", "track"]
 
 
 @dag(
@@ -89,14 +90,23 @@ def moynihan_departures_arrivals():
 
         import pytz
         from airflow.providers.mongo.hooks.mongo import MongoHook
+        from pymongo import UpdateOne
 
         hook = MongoHook(mongo_conn_id="mongodb_trains")
         client = hook.get_conn()
         col = client[MONGO_DB][MONGO_COLLECTION]
         fetched_at = datetime.now(tz=pytz.utc)
-        docs = [{"fetched_at": fetched_at.isoformat(), **r} for r in records]
-        if docs:
-            col.insert_many(docs)
+
+        ops = []
+        for e in records:
+            u = UpdateOne(
+                filter={k: e[k] for k in UPDATE_KEYS},
+                update={"$set": {**e, "updated_at": fetched_at.isoformat()}},
+            )
+            ops.append(u)
+
+        if ops:
+            col.bulk_write(ops, ordered=False)
 
     @task()
     async def get_moynihan_status() -> list[dict]:
@@ -105,10 +115,10 @@ def moynihan_departures_arrivals():
         hook = MongoHook(mongo_conn_id="mongodb_trains")
         client = hook.get_conn()
         col = client[MONGO_DB][MONGO_COLLECTION]
-        latest = col.find_one(sort=[("fetched_at", -1)])
+        latest = col.find_one(sort=[("updated_at", -1)])
         if not latest:
             return []
-        cursor = col.find({"fetched_at": latest["fetched_at"]}, {"_id": 0})
+        cursor = col.find({"updated_at": latest["updated_at"]}, {"_id": 0})
         return list(cursor)
 
     save_to_mongo(fetch_board()) >> get_moynihan_status()
