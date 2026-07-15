@@ -43,6 +43,7 @@ def moynihan_trains():
         import pandas as pd
         import pytz
         from bs4 import BeautifulSoup
+        from httpx import RequestError
 
         class MoynihanTrainHall(httpx.Client):
             def __init__(self):
@@ -73,7 +74,11 @@ def moynihan_trains():
                 )
 
             def _raise_for_status(self, response: httpx.Response) -> None:
-                response.raise_for_status()
+                try:
+                    response.raise_for_status()
+                except RequestError:
+                    print(response.content)
+                    print(response.headers)
 
             def get_train_board(self) -> dict[str, str]:
                 res = self.post("/wp-admin/admin-ajax.php", data={"action": "ajax_amtrak_refresh"})
