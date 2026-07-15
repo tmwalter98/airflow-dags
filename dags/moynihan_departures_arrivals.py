@@ -9,6 +9,7 @@ this DAG effectively produces what that endpoint serves.
 
 from __future__ import annotations
 
+import logging
 from datetime import datetime
 
 from airflow.sdk import dag, task
@@ -17,6 +18,9 @@ MONGO_CONN_ID = "mongo_trains"
 MONGO_DB = "trains"
 MONGO_COLLECTION = "moynihan_board"
 UPDATE_KEYS = ["board", "train_number", "train_name", "destination", "time", "status", "track"]
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 @dag(
@@ -106,7 +110,12 @@ def moynihan_departures_arrivals():
             ops.append(u)
 
         if ops:
-            col.bulk_write(ops, ordered=False)
+            res = col.bulk_write(ops, ordered=False)
+            logger.info(f"Inserted: {res.inserted_count}")
+            logger.info(f"Modified: {res.modified_count}")
+            logger.info(f"Upserted: {res.upserted_count}")
+        else:
+            logger.info("No ops")
 
     @task()
     async def get_moynihan_status() -> list[dict]:
