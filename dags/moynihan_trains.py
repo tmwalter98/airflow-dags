@@ -54,12 +54,10 @@ def moynihan_trains():
                     timeout=30.0,
                     headers={
                         "accept": "application/json, text/javascript, */*; q=0.01",
-                        "accept-language": "en-US,en;q=0.9",
-                        "cache-control": "no-cache",
+                        "accept-language": "en-US,en;q=0.9,de-DE;q=0.8,de;q=0.7",
                         "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
                         "dnt": "1",
                         "origin": "https://moynihantrainhall.nyc",
-                        "pragma": "no-cache",
                         "priority": "u=1, i",
                         "referer": "https://moynihantrainhall.nyc/transportation/",
                         "sec-ch-ua": '"Not;A=Brand";v="8", "Chromium";v="150", "Google Chrome";v="150"',
