@@ -20,7 +20,7 @@ UPDATE_KEYS = ["board", "train_number", "train_name", "destination", "time", "st
 
 
 @dag(
-    schedule=None,
+    schedule="*/10 * * * *",
     start_date=datetime(2026, 1, 1),
     catchup=False,
     tags=["trains", "moynihan", "scrape"],
@@ -92,7 +92,7 @@ def moynihan_departures_arrivals():
         from airflow.providers.mongo.hooks.mongo import MongoHook
         from pymongo import UpdateOne
 
-        hook = MongoHook(mongo_conn_id="mongodb_trains")
+        hook = MongoHook(mongo_conn_id=MONGO_CONN_ID)
         client = hook.get_conn()
         col = client[MONGO_DB][MONGO_COLLECTION]
         updated_at = datetime.now(tz=pytz.utc)
@@ -112,7 +112,7 @@ def moynihan_departures_arrivals():
     async def get_moynihan_status() -> list[dict]:
         from airflow.providers.mongo.hooks.mongo import MongoHook
 
-        hook = MongoHook(mongo_conn_id="mongodb_trains")
+        hook = MongoHook(mongo_conn_id=MONGO_CONN_ID)
         client = hook.get_conn()
         col = client[MONGO_DB][MONGO_COLLECTION]
         latest = col.find_one(sort=[("updated_at", -1)])
