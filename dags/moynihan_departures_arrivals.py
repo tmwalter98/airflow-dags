@@ -95,13 +95,13 @@ def moynihan_departures_arrivals():
         hook = MongoHook(mongo_conn_id="mongodb_trains")
         client = hook.get_conn()
         col = client[MONGO_DB][MONGO_COLLECTION]
-        fetched_at = datetime.now(tz=pytz.utc)
+        updated_at = datetime.now(tz=pytz.utc)
 
         ops = []
         for e in records:
             u = UpdateOne(
                 filter={k: e[k] for k in UPDATE_KEYS},
-                update={"$set": {**e, "updated_at": fetched_at.isoformat()}},
+                update={"$set": {**e, "updated_at": updated_at.isoformat()}},
             )
             ops.append(u)
 
