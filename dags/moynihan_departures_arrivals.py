@@ -83,7 +83,7 @@ def moynihan_departures_arrivals():
         arrivals_df.insert(0, "board", "ARRIVALS")
         boards_df = pd.concat([departures_df, arrivals_df], ignore_index=True)
         boards_df.insert(0, "last_updated", last_updated)
-        boards_df["last_updated"] = boards_df["last_updated"]
+        boards_df["last_updated"] = boards_df["last_updated"].dt.to_pydatetime()
         boards_df.sort_values(by=["time"], inplace=True)
         return boards_df.to_dict(orient="records")
 
