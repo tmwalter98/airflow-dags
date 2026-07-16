@@ -98,6 +98,7 @@ def moynihan_departures_arrivals():
 
         hook = MongoHook(mongo_conn_id=MONGO_CONN_ID)
         client = hook.get_conn()
+
         col = client[MONGO_DB][MONGO_COLLECTION]
         updated_at = datetime.now(tz=pytz.utc)
 
@@ -111,7 +112,7 @@ def moynihan_departures_arrivals():
             ops.append(u)
 
         if ops:
-            res = await col.bulk_write(ops, ordered=False)
+            res = col.bulk_write(ops, ordered=False)
             logger.info(f"Inserted: {res.inserted_count}")
             logger.info(f"Modified: {res.modified_count}")
             logger.info(f"Upserted: {res.upserted_count}")
