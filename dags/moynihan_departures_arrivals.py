@@ -66,7 +66,7 @@ def moynihan_departures_arrivals():
             parsed_time = pd.to_datetime(df["time"], format="%I:%M %p", utc=False).apply(
                 lambda t: t.replace(year=current_date.year, month=current_date.month, day=current_date.day)
             )
-            df["time"] = parsed_time.dt.tz_localize("America/New_York").dt.tz_convert("UTC").astype(str)
+            df["time"] = parsed_time.dt.tz_localize("America/New_York").dt.tz_convert("UTC").dt.to_pydatetime()
             return df
 
         driver = MoynihanTrainHallWebDriver()
@@ -83,16 +83,14 @@ def moynihan_departures_arrivals():
         arrivals_df.insert(0, "board", "ARRIVALS")
         boards_df = pd.concat([departures_df, arrivals_df], ignore_index=True)
         boards_df.insert(0, "last_updated", last_updated)
-        boards_df["last_updated"] = boards_df["last_updated"].astype(str)
+        boards_df["last_updated"] = boards_df["last_updated"]
         boards_df.sort_values(by=["time"], inplace=True)
         return boards_df.to_dict(orient="records")
 
     @task()
     async def save_to_mongo(records: list[dict]) -> None:
         """Upsert the fetched snapshot into Mongo (mirrors `save_moynihan_to_mongo`)."""
-        from datetime import datetime
 
-        import pytz
         from airflow.providers.mongo.hooks.mongo import MongoHook
         from pymongo import UpdateOne
 
@@ -100,13 +98,12 @@ def moynihan_departures_arrivals():
         client = hook.get_conn()
 
         col = client[MONGO_DB][MONGO_COLLECTION]
-        updated_at = datetime.now(tz=pytz.utc)
 
         ops = []
         for e in records:
             u = UpdateOne(
                 filter={k: e[k] for k in UPDATE_KEYS},
-                update={"$set": {**e, "updated_at": updated_at.isoformat()}},
+                update={"$set": e},
                 upsert=True,
             )
             ops.append(u)
