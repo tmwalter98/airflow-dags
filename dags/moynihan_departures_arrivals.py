@@ -106,11 +106,12 @@ def moynihan_departures_arrivals():
             u = UpdateOne(
                 filter={k: e[k] for k in UPDATE_KEYS},
                 update={"$set": {**e, "updated_at": updated_at.isoformat()}},
+                upsert=True,
             )
             ops.append(u)
 
         if ops:
-            res = col.bulk_write(ops, ordered=False)
+            res = await col.bulk_write(ops, ordered=False)
             logger.info(f"Inserted: {res.inserted_count}")
             logger.info(f"Modified: {res.modified_count}")
             logger.info(f"Upserted: {res.upserted_count}")
