@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
-from airflow.sdk import dag, task
+from airflow.sdk import Variable, dag, task
 
 # Default args limited to universally accepted params to avoid TypeError
 # with Airflow 3.0 strict validation.
@@ -17,7 +17,6 @@ default_args = {
 
 @dag(
     schedule="@daily",
-    start_date=datetime(2025, 1, 1),
     catchup=False,
     tags=["example", "k8s", "etl"],
     default_args=default_args,
@@ -31,6 +30,8 @@ def example_k8s_etl():
         # In practice this would call an API or read from a database.
         # `logical_date` is available via the task context in Airflow 3.0.
         raw = {"users": [{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}]}
+        my_variable_value = Variable.get("my_var")
+        print(f"The value is: {my_variable_value}")
         return raw
 
     @task()
