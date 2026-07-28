@@ -129,7 +129,7 @@ def moynihan_departures_arrivals():
         cursor = col.find({"updated_at": latest["updated_at"]}, {"_id": 0})
         return list(cursor)
 
-    save_to_mongo(fetch_board()) >> get_moynihan_status()
+    save_to_mongo(fetch_board())
 
 
 moynihan_departures_arrivals()
