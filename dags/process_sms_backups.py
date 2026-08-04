@@ -69,7 +69,7 @@ def process_sms_backups():
         print(key)
         return key
 
-    review_before_load = HITLOperator(
+    _review_before_load = HITLOperator(
         task_id="review_before_load",
         subject="Review parsed SMS backup before loading",
         body="{{ ti.xcom_pull(task_ids='download_and_parse') }}",
