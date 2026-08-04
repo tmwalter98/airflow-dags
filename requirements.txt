@@ -170,7 +170,9 @@ apache-airflow-providers-common-io==1.8.0 \
 apache-airflow-providers-common-messaging==2.0.4 \
     --hash=sha256:c786db4378d85a3822d2ec44e8c2bb3170f61c49f6aaac47509ce6b5ad8556c1 \
     --hash=sha256:f6d942b8e292ab45fd1417861cc7061e0c2945ab9df537985d35ff09c7b0d117
-    # via airflow-dags
+    # via
+    #   airflow-dags
+    #   apache-airflow-providers-apache-kafka
 apache-airflow-providers-common-sql==2.0.2 \
     --hash=sha256:365af5fe6fbed3f1125f81222df29b4fb0e4acad2624b2f3ad4fa6a717508eab \
     --hash=sha256:a7f919441b0ab2d013f8c9851b4bc7fe4fb85249faf0a2d67f6b5867d2b8acab

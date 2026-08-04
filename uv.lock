@@ -157,7 +157,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "apache-airflow", extra = ["amazon"] },
-    { name = "apache-airflow-providers-apache-kafka" },
+    { name = "apache-airflow-providers-apache-kafka", extra = ["common-messaging"] },
     { name = "apache-airflow-providers-cncf-kubernetes" },
     { name = "apache-airflow-providers-common-messaging" },
     { name = "apache-airflow-providers-mongo" },
@@ -178,7 +178,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "apache-airflow", extras = ["amazon"], specifier = ">=3.3.0" },
-    { name = "apache-airflow-providers-apache-kafka", specifier = ">=1.15.0" },
+    { name = "apache-airflow-providers-apache-kafka", extras = ["common-messaging"], specifier = ">=1.15.0" },
     { name = "apache-airflow-providers-cncf-kubernetes", specifier = ">=10.19.0" },
     { name = "apache-airflow-providers-common-messaging", specifier = ">=2.0.4" },
     { name = "apache-airflow-providers-mongo", specifier = ">=5.4.0" },
@@ -371,6 +371,11 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/00/55/013439c9436e4e2af6fa8da1ab1f66b8af086c8f70bd31fb912d95a4ebf4/apache_airflow_providers_apache_kafka-1.15.0.tar.gz", hash = "sha256:aa570b063164b60986856c410c6870c142ebd46751140b7a68951d7baed2577b", size = 82988, upload-time = "2026-07-28T06:38:29.439Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/4e/cf/ee2ec8fb029fb8d172a385b6c22a19b2d956bd3d9ec22f6fa7c3b6172daa/apache_airflow_providers_apache_kafka-1.15.0-py3-none-any.whl", hash = "sha256:2d98113870ee89afe22b740ea39580975e725e933ad4fb4e520b6bb9a1da8ebd", size = 42339, upload-time = "2026-07-28T06:37:44.904Z" },
+]
+
+[package.optional-dependencies]
+common-messaging = [
+    { name = "apache-airflow-providers-common-messaging" },
 ]
 
 [[package]]
