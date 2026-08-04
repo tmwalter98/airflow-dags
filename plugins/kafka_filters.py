@@ -4,6 +4,11 @@ Passed to a trigger's ``apply_function`` (dotted-path string) — called with
 the raw confluent_kafka ``Message`` for every message polled off the topic.
 Return a truthy value to fire the trigger (it becomes the event payload);
 return None/falsy to keep polling.
+
+Lives in plugins/, not dags/: apply_function is imported by the triggerer
+process, which never parses DAG files and so never puts dags/ on sys.path.
+Airflow does put plugins/ on sys.path for every component at startup, which
+is what makes this importable there.
 """
 
 from __future__ import annotations
