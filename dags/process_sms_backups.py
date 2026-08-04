@@ -23,7 +23,7 @@ default_args = {
 AWS_CONN_ID = "aws_default"  # Ceph RGW S3-compatible endpoint, used for the actual download
 KAFKA_CONN_ID = "kafka_default"
 BUCKET_NAME = "tmwalter98"
-BUCKET_PREFIX = ""
+BUCKET_PREFIX = "x"
 KAFKA_TOPIC = "knative-broker-knative-eventing-default"
 
 kafka_trigger = KafkaMessageQueueTrigger(
