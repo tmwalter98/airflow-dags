@@ -79,6 +79,7 @@ aiohttp==3.14.1 \
     --hash=sha256:faccab372e66bc76d5731525e7f1143c922271725b9d38c9f97edcc66266b451 \
     --hash=sha256:fc0cacab7ba4e56f0f81c82a98c09bed2f39c940107b03a34b168bdf7597edd3
     # via
+    #   apache-airflow-providers-http
     #   kubernetes
     #   kubernetes-asyncio
 aiosignal==1.4.0 \
@@ -118,10 +119,15 @@ apache-airflow==3.3.0 \
     --hash=sha256:59ff9185c4292788dc422d9de5c384ca7b1fc11748ec88a10629d28b3385f3df \
     --hash=sha256:6e72fc78e60383ba1c807c15f57ea44d46a2f503dff1be5a8dd571c333076303
     # via
+    #   airflow-dags
+    #   apache-airflow-providers-amazon
+    #   apache-airflow-providers-apache-kafka
     #   apache-airflow-providers-cncf-kubernetes
     #   apache-airflow-providers-common-compat
     #   apache-airflow-providers-common-io
+    #   apache-airflow-providers-common-messaging
     #   apache-airflow-providers-common-sql
+    #   apache-airflow-providers-http
     #   apache-airflow-providers-mongo
     #   apache-airflow-providers-smtp
     #   apache-airflow-providers-standard
@@ -131,6 +137,14 @@ apache-airflow-core==3.3.0 \
     # via
     #   apache-airflow
     #   apache-airflow-task-sdk
+apache-airflow-providers-amazon==9.32.0 \
+    --hash=sha256:0eb63b87c316c5eb6c21bb859a43df918f72655c7af4af62f3ab454cb1514ec4 \
+    --hash=sha256:9c963eae175cf28f13faa9255ecbbf4e1144149211833dcb6a1da92c31e566f2
+    # via apache-airflow
+apache-airflow-providers-apache-kafka==1.15.0 \
+    --hash=sha256:2d98113870ee89afe22b740ea39580975e725e933ad4fb4e520b6bb9a1da8ebd \
+    --hash=sha256:aa570b063164b60986856c410c6870c142ebd46751140b7a68951d7baed2577b
+    # via airflow-dags
 apache-airflow-providers-cncf-kubernetes==10.19.0 \
     --hash=sha256:9bcb28d6981c9c4bc07d53843809a6fc9615aeb739d6b779fa51fc6e6252177f \
     --hash=sha256:da98925a352de6cd56e2d01cd6422dfdd84daaa97473d578897ae6b1e4191deb
@@ -140,9 +154,12 @@ apache-airflow-providers-common-compat==1.16.0 \
     --hash=sha256:8fc317c5388d1e263e9728afa40201011c95b5454bf062d17baf300426d73416
     # via
     #   apache-airflow-core
+    #   apache-airflow-providers-amazon
+    #   apache-airflow-providers-apache-kafka
     #   apache-airflow-providers-cncf-kubernetes
     #   apache-airflow-providers-common-io
     #   apache-airflow-providers-common-sql
+    #   apache-airflow-providers-http
     #   apache-airflow-providers-mongo
     #   apache-airflow-providers-smtp
     #   apache-airflow-providers-standard
@@ -150,10 +167,20 @@ apache-airflow-providers-common-io==1.8.0 \
     --hash=sha256:174a8a1d1d140a647a1f6457337d75217ae4c68ea2540cb0de47afa949cf80b5 \
     --hash=sha256:6290f33eedc2819781d8bf7b633a220253c92e4933d99e8e8be014a59b566bf9
     # via apache-airflow-core
+apache-airflow-providers-common-messaging==2.0.4 \
+    --hash=sha256:c786db4378d85a3822d2ec44e8c2bb3170f61c49f6aaac47509ce6b5ad8556c1 \
+    --hash=sha256:f6d942b8e292ab45fd1417861cc7061e0c2945ab9df537985d35ff09c7b0d117
+    # via airflow-dags
 apache-airflow-providers-common-sql==2.0.2 \
     --hash=sha256:365af5fe6fbed3f1125f81222df29b4fb0e4acad2624b2f3ad4fa6a717508eab \
     --hash=sha256:a7f919441b0ab2d013f8c9851b4bc7fe4fb85249faf0a2d67f6b5867d2b8acab
-    # via apache-airflow-core
+    # via
+    #   apache-airflow-core
+    #   apache-airflow-providers-amazon
+apache-airflow-providers-http==6.0.4 \
+    --hash=sha256:58a4fc87c064977890b40b4d41b62b56e5e18aa30ee995b7640a1dbb4bcbef32 \
+    --hash=sha256:d2923b6635ca9d0a67e3168f88eac5a995ab8e619389f47f584897c58662e18c
+    # via apache-airflow-providers-amazon
 apache-airflow-providers-mongo==5.4.0 \
     --hash=sha256:d4ec2b4f04c83c2ad289d7e96d99a7950f2da57ac47fb7eb57324eef3792810e \
     --hash=sha256:fbc8ee6e03224b8a6f86f2b6372d4ad2fce910e8482ec7358df2e87f164709ca
@@ -185,9 +212,16 @@ asgiref==3.11.1 \
     --hash=sha256:e8667a091e69529631969fd45dc268fa79b99c92c5fcdda727757e52146ec133
     # via
     #   apache-airflow-core
+    #   apache-airflow-providers-amazon
+    #   apache-airflow-providers-apache-kafka
     #   apache-airflow-providers-cncf-kubernetes
     #   apache-airflow-providers-common-compat
+    #   apache-airflow-providers-http
     #   apache-airflow-task-sdk
+asn1crypto==1.5.1 \
+    --hash=sha256:13ae38502be632115abf8a24cbe5f4da52e3b5231990aff31123c805306ccb9c \
+    --hash=sha256:db4e40728b728508912cbb3d44f19ce188f218e9eba635821bb4b68564f8fd67
+    # via scramp
 attrs==26.1.0 \
     --hash=sha256:c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309 \
     --hash=sha256:d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32
@@ -206,7 +240,28 @@ babel==2.18.0 \
 beautifulsoup4==4.15.0 \
     --hash=sha256:288e3ca7d54b06f2ac191970bc275c1939cb46d450b255bf6718b04aa37ab4f7 \
     --hash=sha256:d6f88de62e1d4e38ecb1077eb9724cd0eff29d2a08ca16a401e9b9e93f117cf9
-    # via airflow-dags
+    # via
+    #   airflow-dags
+    #   redshift-connector
+boto3==1.43.54 \
+    --hash=sha256:3fe21f37f5b34e00fc360190f363229cef425f3c0e80a6f2b6a52f6501c3ec90 \
+    --hash=sha256:8353beda3ce4037758b24ab6bce7162e6cc084fd14c88637956d208d76cee244
+    # via
+    #   apache-airflow-providers-amazon
+    #   pyathena
+    #   redshift-connector
+    #   sagemaker-studio
+    #   watchtower
+botocore==1.43.54 \
+    --hash=sha256:22b447e6c5e295d610a00df262efdffb062805d293c00e94f52a4cd3fe9d391d \
+    --hash=sha256:5b58969503eda747e0b69c33735edfc02dab3d31fe3bba87dd83ea787152ffa4
+    # via
+    #   apache-airflow-providers-amazon
+    #   boto3
+    #   pyathena
+    #   redshift-connector
+    #   s3transfer
+    #   sagemaker-studio
 cachetools==7.1.4 \
     --hash=sha256:323dc4127934744db5b54eb4924482d7edafbf9554e820d1531c2e08c0e4ef54 \
     --hash=sha256:437f55a4e0c1b01a4f3077cc470e6991d47430970e36fbcb77e2be0df4fc1cd6
@@ -351,6 +406,19 @@ colorlog==6.10.1 \
     # via
     #   apache-airflow-core
     #   apache-airflow-task-sdk
+confluent-kafka==2.15.0 \
+    --hash=sha256:000463c822a7adc3293369b63688b68d17c03a1a4a64f86182efc08f8b150676 \
+    --hash=sha256:0455754e8294e1e76cb5acc083c300b6bd8d88f2d2c551c583cbf4ab55889a57 \
+    --hash=sha256:2e80bd96f61aae2ffba951754a769e6d3c5ebb5a5e778ed0ae8ad899ea91556b \
+    --hash=sha256:41d4c7360c51202785e8e9aa56241dd392b9dbcc311eae7c5e6985b239efc12b \
+    --hash=sha256:7ad9bad1cbabf6713ec039b8204b48d322024fd11397eec88d912e048c732ba7 \
+    --hash=sha256:7c59ea36606e0e946e6b353203136b4d71be6d95c0c8ae5113b81850ff5b7b41 \
+    --hash=sha256:9ddf4cf4647e5d633ef64e3f5a349d5288edfedf974203993e9d86548c2695be \
+    --hash=sha256:b0ac3831aac47ea23699a6ca5b9836288a4b9d201015dbfc4c3ec9f20592fdb5 \
+    --hash=sha256:d8ed33f623ff2a104fb76f99a67e9917f0170fddb4e28380fcdc83347b1646b2 \
+    --hash=sha256:e781d39ff31d5d10d0502471f92f95aff4f5be1eaae9a1f57aeac164bc9f9029 \
+    --hash=sha256:ff43508f8e929d83545272ef4f17e27fdaa9cc8397f77cf2236b22d67de4edc4
+    # via apache-airflow-providers-apache-kafka
 cron-descriptor==2.1.0 \
     --hash=sha256:e280efae0e375e2cbc62846f833888f12c7921d2d11ab0dca598f94c51af8639 \
     --hash=sha256:ecddb8b2f6c5286398949aaefe185364666af74f33b01877c61378e1fd4e38e6
@@ -511,6 +579,7 @@ fsspec==2026.6.0 \
     --hash=sha256:f5bac145310fe30e16e1471bd6840b2d990d609e872251d7e674241822abf01a
     # via
     #   apache-airflow-task-sdk
+    #   pyathena
     #   universal-pathlib
 googleapis-common-protos==1.75.0 \
     --hash=sha256:53a062ff3c32552fbd62c11fe23768b78e4ddf0494d5e5fd97d3f4689c75fbbd \
@@ -655,6 +724,10 @@ importlib-metadata==9.0.0 \
     --hash=sha256:2d21d1cc5a017bd0559e36150c21c830ab1dc304dedd1b7ea85d20f45ef3edd7 \
     --hash=sha256:a4f57ab599e6a2e3016d7595cfd72eb4661a5106e787a95bcc90c7105b831efc
     # via apache-airflow-core
+inflection==0.5.1 \
+    --hash=sha256:1a29730d366e996aaacffb2f1f1cb9593dc38e2ddd30c91250c6dde09ea9b417 \
+    --hash=sha256:f38b2b640938a4f35ade69ac3d053042959b62a0f1076a5bbaa1b9526605a8a2
+    # via apache-airflow-providers-amazon
 isoduration==20.11.0 \
     --hash=sha256:ac2f9015137935279eac671f94f89eb00584f940f5dc49462a0c4ee692ba1bd9 \
     --hash=sha256:b2904c2a4228c3d44f409c8ae8e2370eb21a26f7ac2ec5446df141dde3452042
@@ -673,6 +746,17 @@ jinja2==3.1.6 \
     #   apache-airflow-task-sdk
     #   cadwyn
     #   fastapi
+jmespath==1.1.0 \
+    --hash=sha256:472c87d80f36026ae83c6ddd0f1d05d4e510134ed462851fd5f754c8c3cbb88d \
+    --hash=sha256:a5663118de4908c91729bea0acadca56526eb2698e83de10cd116ae0f4e97c64
+    # via
+    #   apache-airflow-providers-amazon
+    #   boto3
+    #   botocore
+jsonpath-ng==1.8.0 \
+    --hash=sha256:54252968134b5e549ea5b872f1df1168bd7defe1a52fed5a358c194e1943ddc3 \
+    --hash=sha256:b8dde192f8af58d646fc031fac9c99fe4d00326afc4148f1f043c601a8cfe138
+    # via apache-airflow-providers-amazon
 jsonschema==4.26.0 \
     --hash=sha256:0c26707e2efad8aa1bfc5b7ce170f3fccc2e4918ff85989ba9ffa9facb2be326 \
     --hash=sha256:d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce
@@ -757,6 +841,63 @@ lockfile==0.12.2 \
     # via
     #   apache-airflow-core
     #   python-daemon
+lxml==6.1.1 \
+    --hash=sha256:05a82eb6e1530a64f26225b55cbd178113bd0b5af1c2b625f25e5296742c26d2 \
+    --hash=sha256:0b7e8a14c8634bf6f7a568634cb395305a6d964aeb5b7ee32248094bed3a7e2c \
+    --hash=sha256:17e0e18d4ad8adbd0399291bc44845b69d9dd68439a3cdebdf35ff902ec05072 \
+    --hash=sha256:19607c6bbff2a44cf3fe8250abccd20942d3462473e0a721d01d379ed017e462 \
+    --hash=sha256:19b7ab10b210b0b3ad7985d9ac4eb66ab09a90b20fe6e2f7ba55d01a234345d0 \
+    --hash=sha256:1d4962d4c66bf830a7e59ed6cfc17d148149898a3aefa8ec6e59763e6e3ed085 \
+    --hash=sha256:2a0217714657e023ef4293500f65aa20fce6164c8fd6b08fa5bd4a859fb14b9b \
+    --hash=sha256:2c8daa471358dc2d6fcf02165e80ec68f77871a286df95bc5cc3816153b0fd2c \
+    --hash=sha256:3483644525531e1d5762b0c44a8e18b6efba321b6dcf8a8952de10b037618bca \
+    --hash=sha256:3779def59032b81e44a5f70096ef6bf2082f8d901937dca354474ba09782e245 \
+    --hash=sha256:3ab541146f1f6968c462d6c2ac495148e8cdba2f8347700b2141b6ec5a75bf52 \
+    --hash=sha256:3fd9728a2735fda14f4e8235830c86b539e9661e849665bf926d3f867943b4bf \
+    --hash=sha256:424aa57aca0897eb922aef34395bd1289b3b6f04e6bae20ea123c0c7e333cffc \
+    --hash=sha256:47402e62c52ff5988c1e8c6c63177f5708bccf48e366dea4e3dcf1e645e04947 \
+    --hash=sha256:4f0dd2f01f9f8a89f565d000e03abcf0a13d692a346c8d22f628d49af098777a \
+    --hash=sha256:581d4c8ae690a6609e64862dd6b7c2489635c2d13907fc2b20f2bc200ff1d21e \
+    --hash=sha256:58bb955caba94e467d2a96da17660d2d704e0675894cba21ab8a775b8621fd1c \
+    --hash=sha256:62aeb7e85b5d60320b9d77eef2e773994e2c0ce10121b277e0a19804e1654a5a \
+    --hash=sha256:63876be28efefa04a1df615b46770e82042cce445cfdce55160522f57b231ccb \
+    --hash=sha256:649dda677cf3bd6ac9ae14007ba0c824ded8ce5808b53fc7431d9140399118c1 \
+    --hash=sha256:68a9198d0fc122d14bb76837de9aa80cf84caed990b5b237f532ed87d3706736 \
+    --hash=sha256:70cdfd80589d59e43e18005dd7244e8895e93db8ab6a620b7e23df5445a4e3d2 \
+    --hash=sha256:73bc2086f141224ebddb7fc5c6a36ca58b31b94b561e1dfe8e073e3270fad1e7 \
+    --hash=sha256:74a9717fd0d82effef5c2854f0d917231d5324b5a3eb7275c43ac9fa32f97a14 \
+    --hash=sha256:762ff394d5bd56da0cf034a23dcce4e13923f15321a2adfa2ac00201dc6d3fca \
+    --hash=sha256:787b2496d0dbe8cd180984e8d29e3a6f76e7ea34db781cb3bd55e4ba1ef8b4ee \
+    --hash=sha256:793033d6c5cdf33a573f910d9bea14ef8f5771820411d118da8e1182edb53d5e \
+    --hash=sha256:7d47866cb32fb503450b6edc9df355d10dc49836af2e89901bd6ac6b0896d9d9 \
+    --hash=sha256:7f7a92e8583f06b1fd49d01158143b8461cfcd135dcb10ec807270a3051bd603 \
+    --hash=sha256:86281fbdd6a8162756f8d603f37e3435bfa38043adb79c6dc6a2dfee065e7525 \
+    --hash=sha256:86c89b9d55ebf820ad7c90bc533410f0d098054f293351f10603c0c46ff598f5 \
+    --hash=sha256:876e1ff5930ed8bf295ec5ef9a8155e9b6b1876bbf1deed8b3a8069311875a8f \
+    --hash=sha256:88d8cb75b9d82858497a5393e3c63cfbf03035225e4b35a49ed7ccb151e4dc0e \
+    --hash=sha256:9395002973c827b3ed67db77e6ec09f092919a587022174554096a269378fb13 \
+    --hash=sha256:9e36f163528fc50cbef305f02a5fd66d404edf7049cdaff211dbc2cba5a7013e \
+    --hash=sha256:9eb9b5a968f6e0f6d640092a567e14529ff8cea2e29d00da6f78a79fa49f013c \
+    --hash=sha256:a088f287f7d8275a33c07f2cac6c50b9319309a0200a39e7e75d80c707723099 \
+    --hash=sha256:a10bd2fd62e8ce916ececb342f348f190724a098c1faa056fdfb2a22ad5e8660 \
+    --hash=sha256:aa49e06d94aba782c6a02eecb7e507969e7e7a41b267f1b359bb35585f295d5b \
+    --hash=sha256:aad9aa39483ed8ec44d6d2e59e5b98a0d80676ef0d92f44bfc374836111f62f5 \
+    --hash=sha256:ac931cdc9442c1763b8a8f6cd62c0c938737eafc5be75eff88df55fc73bc0d00 \
+    --hash=sha256:acd7d70b64c0aae0c7922cca83d288a16f5f6da523637697872253415269baef \
+    --hash=sha256:aee395f5d0927f947758b4ec119fd5fc8ec71f07a1c5c52077b30b04c0fa6955 \
+    --hash=sha256:b1b963fd8f5caa68e99dfae060d54de1fe9cba899b8718b44a00cdca53c3e590 \
+    --hash=sha256:b2d444f2e66624d68e9c6b211e28a76e22fff5fcabcfff4deac18b529b7d4137 \
+    --hash=sha256:ba96ae44888e0185281e937633a743ea90d5a196c6000f82565ebb0580012d40 \
+    --hash=sha256:c08e5c694306507275f2290073350c4f32e383db15213b2c69e7ff39c1193840 \
+    --hash=sha256:c5d7152ec39ca7c402d8fb9bad86140a15b9503bd0c54484e3f1bbe3dd37ceca \
+    --hash=sha256:c6ed5141a5c7507cf3ee76bd363b0d6f801e3321adc35b5d825a23115faa5465 \
+    --hash=sha256:d34bbf07dbc7ca5970671b1512e928991fb5e9d95365636c9b2d8b4f53af405e \
+    --hash=sha256:d49514be2f28d895c38cf9d2b72d7b9a07d00314519f456c0b50b53cfcf4c785 \
+    --hash=sha256:e902da4b04e6b52e5893900d4b8ab46068f75f3561f01bf1080957f9fd932ed6 \
+    --hash=sha256:eb7c9811bfaa8b1ed5ed319f5d370dfbcaa59d52ea64be2a5a85e18195930354 \
+    --hash=sha256:efe0374196335f93b53269acd811b944f2e6bdc88e8894f214bd636455484909 \
+    --hash=sha256:f64ec5397ea6a41fc1b4af0380d79b44a755b5531dcaccd9940fb260dca93038
+    # via redshift-connector
 mako==1.3.12 \
     --hash=sha256:8f61569480282dbf557145ce441e4ba888be453c30989f879f0d652e39f53ea9 \
     --hash=sha256:9f778e93289bd410bb35daadeb4fc66d95a746f0b75777b942088b7fd7af550a
@@ -814,6 +955,10 @@ markupsafe==3.0.3 \
     # via
     #   jinja2
     #   mako
+marshmallow==4.3.0 \
+    --hash=sha256:46c4fe6984707e3cbd485dfebbf0a59874f58d695aad05c1668d15e8c6e13b46 \
+    --hash=sha256:fb43c53b3fe240b8f6af37223d6ef1636f927ad9bea8ab323afad95dff090880
+    # via apache-airflow-providers-amazon
 mdurl==0.1.2 \
     --hash=sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8 \
     --hash=sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba
@@ -1035,6 +1180,8 @@ packaging==26.2 \
     # via
     #   apache-airflow-core
     #   apache-airflow-task-sdk
+    #   redshift-connector
+    #   sagemaker-studio
 pandas==3.0.3 \
     --hash=sha256:08d789b41f87e0905880e293cedf6197ce71fe67cc081358b1e148a491b9bd13 \
     --hash=sha256:0d589105b3c14645af1738ff279b2995102d8f7a03b0a66dc8d95550eb513e04 \
@@ -1238,6 +1385,11 @@ psutil==7.2.2 \
     # via
     #   apache-airflow-core
     #   apache-airflow-task-sdk
+    #   sagemaker-studio
+pyathena==3.35.2 \
+    --hash=sha256:77e6c2105f17b418009cd31eeb7e32102ed744bfa2a1458688f2508f96f11c97 \
+    --hash=sha256:ea55629b69ffc0f8bb4f42fd45b43919194e9f3759be1cf39f2d6e908e53914c
+    # via apache-airflow-providers-amazon
 pycparser==3.0 ; implementation_name != 'PyPy' and platform_python_implementation != 'PyPy' \
     --hash=sha256:600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29 \
     --hash=sha256:b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992
@@ -1247,6 +1399,7 @@ pydantic==2.13.4 \
     --hash=sha256:c40756b57adaa8b1efeeced5c196f3f3b7c435f90e84ea7f443901bec8099ef6
     # via
     #   apache-airflow-core
+    #   apache-airflow-providers-http
     #   apache-airflow-task-sdk
     #   cadwyn
     #   fastapi
@@ -1374,11 +1527,14 @@ python-dateutil==2.9.0.post0 \
     #   apache-airflow-core
     #   apache-airflow-task-sdk
     #   arrow
+    #   botocore
     #   croniter
     #   kubernetes
     #   kubernetes-asyncio
     #   pandas
     #   pendulum
+    #   pyathena
+    #   sagemaker-studio
 python-dotenv==1.2.2 \
     --hash=sha256:1d8214789a24de455a8b8bd8ae6fe3c6b69a5e3d64aa8a8e5d68e694bbcb285a \
     --hash=sha256:2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3
@@ -1396,7 +1552,9 @@ python-slugify==8.0.4 \
 pytz==2026.2 \
     --hash=sha256:04156e608bee23d3792fd45c94ae47fae1036688e75032eea2e3bf0323d1f126 \
     --hash=sha256:0e60b47b29f21574376f218fe21abc009894a2321ea16c6754f3cad6eb7cdd6a
-    # via airflow-dags
+    # via
+    #   airflow-dags
+    #   redshift-connector
 pyyaml==6.0.3 \
     --hash=sha256:00c4bdeba853cc34e7dd471f16b4114f4162dc03e6b7afcc2128711f0eca823c \
     --hash=sha256:02893d100e99e03eda1c8fd5c441d8c60103fd175728e23e431db1b589cf5ab3 \
@@ -1452,6 +1610,9 @@ pyyaml-ft==8.0.0 ; python_full_version < '3.14' \
     --hash=sha256:de04cfe9439565e32f178106c51dd6ca61afaa2907d143835d501d84703d3793 \
     --hash=sha256:e64fa5f3e2ceb790d50602b2fd4ec37abbd760a8c778e46354df647e7c5a4ebb
     # via libcst
+redshift-connector==2.1.15 \
+    --hash=sha256:4e4b4b0e88a6f9dfe6c2ec9f81b328936ec1f32fc9549c6b960e1131364b3dd7
+    # via apache-airflow-providers-amazon
 referencing==0.37.0 \
     --hash=sha256:381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231 \
     --hash=sha256:44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8
@@ -1463,13 +1624,21 @@ requests==2.34.2 \
     --hash=sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed
     # via
     #   apache-airflow-core
+    #   apache-airflow-providers-http
     #   kubernetes
     #   opentelemetry-exporter-otlp-proto-http
+    #   redshift-connector
     #   requests-oauthlib
+    #   requests-toolbelt
+    #   sagemaker-studio
 requests-oauthlib==2.0.0 \
     --hash=sha256:7dd8a5c40426b779b0868c404bdef9768deccf22749cde15852df527e6269b36 \
     --hash=sha256:b3dffaebd884d8cd778494369603a9e7b58d29111bf6b41bdc2dcd87203af4e9
     # via kubernetes
+requests-toolbelt==1.0.0 \
+    --hash=sha256:7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6 \
+    --hash=sha256:cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06
+    # via apache-airflow-providers-http
 rich==15.0.0 \
     --hash=sha256:33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb \
     --hash=sha256:edd07a4824c6b40189fb7ac9bc4c52536e9780fbbfbddf6f1e2502c31b068c36
@@ -1564,6 +1733,18 @@ rpds-py==2026.6.3 \
     # via
     #   jsonschema
     #   referencing
+s3transfer==0.19.2 \
+    --hash=sha256:ba0309fd86be3c27dbf78cdd813c13c5e1df16e5874b99d2535ebbdfb9892993 \
+    --hash=sha256:d8168eccca828cbb2cd573675333f3bddd254313a9c42494b84c76b539e8ba25
+    # via boto3
+sagemaker-studio==1.0.26 \
+    --hash=sha256:0961f9983d93f9710d2a11bc2af69ae99af0f295db80112b792428c884cd167c \
+    --hash=sha256:d16e54710ac17d232d2d5ba6735d158d072074b076c0c50b9d4b57dc5c01b0af
+    # via apache-airflow-providers-amazon
+scramp==1.4.12 \
+    --hash=sha256:6adb2828c5d64bd7785a6878eed30f66ce0fae60bf5fc07c26ce1f521db3ec3e \
+    --hash=sha256:94b38decf26005b835050d06541a5aefb9914497f4de789c6d82a0abc4b934de
+    # via redshift-connector
 setproctitle==1.3.7 \
     --hash=sha256:02432f26f5d1329ab22279ff863c83589894977063f59e6c4b4845804a08f8c2 \
     --hash=sha256:047138279f9463f06b858e579cc79580fbf7a04554d24e6bddf8fe5dddbe3d4c \
@@ -1607,6 +1788,12 @@ setproctitle==1.3.7 \
     --hash=sha256:fcb966a6c57cf07cc9448321a08f3be6b11b7635be502669bc1d8745115d7e7f \
     --hash=sha256:fe5ca35aeec6dc50cabab9bf2d12fbc9067eede7ff4fe92b8f5b99d92e21263f
     # via apache-airflow-core
+setuptools==83.0.0 \
+    --hash=sha256:025bccbbf0fa05b6192bc64ae1e7b16e001fd6d6d4d5de03c97b1c1ade523bef \
+    --hash=sha256:29b23c360f22f414dc7336bb39178cc7bcbf6021ed2733cde173f09dba19abb3
+    # via
+    #   redshift-connector
+    #   sagemaker-studio
 shellingham==1.5.4 \
     --hash=sha256:7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686 \
     --hash=sha256:8dbca0739d487e5bd35ab3ca4b36e11c4078f3a234bfce294b0a0291363404de
@@ -1685,6 +1872,7 @@ tenacity==9.1.4 \
     # via
     #   apache-airflow-core
     #   apache-airflow-task-sdk
+    #   pyathena
 termcolor==3.3.0 \
     --hash=sha256:348871ca648ec6a9a983a13ab626c0acce02f515b9e1983332b17af7979521c5 \
     --hash=sha256:cf642efadaf0a8ebbbf4bc7a31cec2f9b5f21a9f726f4ccbb08192c9c26f43a5
@@ -1751,9 +1939,11 @@ urllib3==2.7.0 \
     --hash=sha256:9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897
     # via
     #   apache-airflow-providers-cncf-kubernetes
+    #   botocore
     #   kubernetes
     #   kubernetes-asyncio
     #   requests
+    #   sagemaker-studio
 uuid6==2025.0.1 \
     --hash=sha256:80530ce4d02a93cdf82e7122ca0da3ebbbc269790ec1cb902481fa3e9cc9ff99 \
     --hash=sha256:cd0af94fa428675a44e32c5319ec5a3485225ba2179eefcf4c3f205ae30a81bd
@@ -1850,6 +2040,10 @@ watchfiles==1.2.0 \
     --hash=sha256:faea288b6f0ab1902ef08f4ca6de005dccf856c4e0c4f21b8c5fce02d90a1b08 \
     --hash=sha256:fff610d7bb2256a317bb1e96f0d7862c7aa8076733ee5df0fd41bbe76a24a4f4
     # via uvicorn
+watchtower==3.4.0 \
+    --hash=sha256:5eac65cbf2a7350bb43c3518485230a6135ed7dec7ccb88468828d68ab9fea26 \
+    --hash=sha256:7d3c116aff72a73ce8f6fc0addd1d0daa04d3f9d53d87cedca3a5a65a264bf7d
+    # via apache-airflow-providers-amazon
 websocket-client==1.9.0 \
     --hash=sha256:9e813624b6eb619999a97dc7958469217c3176312b3a16a4bd1bc7e08a46ec98 \
     --hash=sha256:af248a825037ef591efbf6ed20cc5faa03d3b47b9e5a2230a529eeee1c1fc3ef
