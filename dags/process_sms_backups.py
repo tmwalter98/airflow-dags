@@ -71,12 +71,7 @@ def process_sms_backups():
         # Replace with real SMS backup parsing.
         return {"key": key, "size_bytes": len(raw_bytes)}
 
-    @task()
-    def printer(key: str) -> str:
-        logger.error(key)
-        return key
-
-    _review_before_load = HITLOperator(
+    review_before_load = HITLOperator(
         task_id="review_before_load",
         subject="Review parsed SMS backup before loading",
         body="{{ ti.xcom_pull(task_ids='download_and_parse') }}",
@@ -85,9 +80,8 @@ def process_sms_backups():
 
     key = get_triggering_key()
 
-    # parsed = download_and_parse(key)
-    # parsed >> review_before_load
-    printer(key)
+    parsed = download_and_parse(key)
+    parsed >> review_before_load
 
 
 process_sms_backups()
