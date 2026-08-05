@@ -8,11 +8,15 @@ schedules this DAG. No polling schedule needed.
 
 from __future__ import annotations
 
+import logging
 from datetime import timedelta
 
 from airflow.providers.apache.kafka.triggers.msg_queue import KafkaMessageQueueTrigger
 from airflow.providers.standard.operators.hitl import HITLOperator
 from airflow.sdk import Asset, AssetWatcher, dag, task
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 default_args = {
     "owner": "data-eng",
@@ -34,7 +38,7 @@ kafka_trigger = KafkaMessageQueueTrigger(
 )
 
 sms_backup_asset = Asset(
-    f"kafka://{KAFKA_TOPIC}/{BUCKET_NAME}/{BUCKET_PREFIX}",
+    name=f"kafka://{KAFKA_TOPIC}/{BUCKET_NAME}/{BUCKET_PREFIX}",
     watchers=[AssetWatcher(name="sms_backup_kafka_watcher", trigger=kafka_trigger)],
 )
 
@@ -50,6 +54,7 @@ def process_sms_backups():
     @task()
     def get_triggering_key(**context) -> str:
         """Pull the S3 key from the CloudEvent that fired this run."""
+        logger.error(str(context))
         triggering_events = context["triggering_asset_events"]
         event = triggering_events[sms_backup_asset][-1]
         return event.extra["payload"]["key"]
@@ -57,6 +62,8 @@ def process_sms_backups():
     @task()
     def download_and_parse(key: str) -> dict:
         from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+
+        logger.error(key)
 
         hook = S3Hook(aws_conn_id=AWS_CONN_ID)
         raw_bytes = hook.get_key(key, bucket_name=BUCKET_NAME).get()["Body"].read()
@@ -66,7 +73,7 @@ def process_sms_backups():
 
     @task()
     def printer(key: str) -> str:
-        print(key)
+        logger.error(key)
         return key
 
     _review_before_load = HITLOperator(
