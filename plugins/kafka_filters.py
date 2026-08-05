@@ -14,10 +14,15 @@ is what makes this importable there.
 from __future__ import annotations
 
 import json
+import logging
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from confluent_kafka import Message
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def match_ceph_bucket_event(message: Message, bucket: str, key_prefix: str) -> dict[str, Any] | None:
@@ -27,6 +32,8 @@ def match_ceph_bucket_event(message: Message, bucket: str, key_prefix: str) -> d
     S3-style event body (`Records[].s3.bucket.name`, `Records[].s3.object.key`,
     `Records[].eventName`) — the same shape AWS S3 event notifications use.
     """
+    logger.error(bucket)
+    logger.error(key_prefix)
     envelope = json.loads(message.value().decode("utf-8"))
     body = envelope.get("data", envelope)
 
