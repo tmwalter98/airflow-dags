@@ -33,8 +33,6 @@ KAFKA_TOPIC = "knative-broker-knative-eventing-default"
 kafka_trigger = KafkaMessageQueueTrigger(
     topics=[KAFKA_TOPIC],
     kafka_config_id=KAFKA_CONN_ID,
-    # apply_function="kafka_filters.match_ceph_bucket_event",
-    # apply_function_kwargs={"bucket": BUCKET_NAME, "key_prefix": BUCKET_PREFIX},
 )
 
 sms_backup_asset = Asset(
