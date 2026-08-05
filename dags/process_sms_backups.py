@@ -54,16 +54,9 @@ def process_sms_backups():
     @task()
     def get_triggering_key(**context) -> str:
         """Pull the S3 key from the CloudEvent that fired this run."""
-        logger.error("Keys::: " + str(context.keys()))
-        for k, v in context.items():
-            logger.error("#" * 10 + " " + str(k))
-            logger.error(str(v))
-        logger.error("context: " + str(context))
         triggering_events = context["triggering_asset_events"]
-        logger.error("triggering_events: " + str(triggering_events))
         event = triggering_events[sms_backup_asset][-1]
-        logger.error("event: " + str(event))
-        return event.extra["s3"]["object"]["key"]
+        return event.extra["payload"]["key"]
 
     @task()
     def download_and_parse(key: str) -> dict:
