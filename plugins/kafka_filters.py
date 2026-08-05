@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from confluent_kafka import Message
@@ -35,6 +35,7 @@ def match_ceph_bucket_event(message: Message, bucket: str, key_prefix: str) -> d
     logger.error(bucket)
     logger.error(key_prefix)
     envelope = json.loads(message.value().decode("utf-8"))
+    logger.error(str(envelope))
     body = envelope.get("data", envelope)
 
     for record in body.get("Records", []):
