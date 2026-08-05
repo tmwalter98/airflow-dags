@@ -25,7 +25,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def match_ceph_bucket_event(message: Message, bucket: str, key_prefix: Optional[str] = None) -> dict[str, Any] | None:
+def match_ceph_bucket_event(message: Message, bucket: str, key_prefix: str) -> dict[str, Any] | None:
     """Match a Ceph RGW bucket-notification CloudEvent for object creation under a prefix.
 
     Ceph RGW publishes a CloudEvents envelope whose `data` field holds an
@@ -43,12 +43,11 @@ def match_ceph_bucket_event(message: Message, bucket: str, key_prefix: Optional[
         object_key = s3_info.get("object", {}).get("key")
         bucket_name = s3_info.get("bucket", {}).get("name")
 
-        prefix_mask = object_key.startswith(key_prefix) if isinstance(key_prefix, str) else True
         if (
             event_name.startswith("s3:ObjectCreated")
             and bucket_name == bucket
             and object_key
-            and prefix_mask
+            and object_key.startswith(key_prefix)
         ):
             return {"bucket": bucket_name, "key": object_key, "event_name": event_name}
 
