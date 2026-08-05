@@ -62,6 +62,7 @@ def process_sms_backups():
         triggering_events = context["triggering_asset_events"]
         logger.error("triggering_events: " + str(triggering_events))
         event = triggering_events[sms_backup_asset][-1]
+        logger.error("event: " + str(event))
         return event.extra["s3"]["object"]["key"]
 
     @task()
