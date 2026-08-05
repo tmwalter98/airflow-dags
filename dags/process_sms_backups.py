@@ -54,18 +54,21 @@ def process_sms_backups():
     @task()
     def get_triggering_key(**context) -> str:
         """Pull the S3 key from the CloudEvent that fired this run."""
-        logger.error("context: "+str(context))
+        for k, v in context.items():
+            logger.error("#" * 10 + " " + str(k))
+            logger.error(str(v))
+        logger.error("context: " + str(context))
         triggering_events = context["triggering_asset_events"]
-        logger.error("triggering_events: "+ str(triggering_events))
+        logger.error("triggering_events: " + str(triggering_events))
         event = triggering_events[sms_backup_asset][-1]
-        logger.error("event: "+ str(event))
+        logger.error("event: " + str(event))
         return event.extra["payload"]["key"]
 
     @task()
     def download_and_parse(key: str) -> dict:
         from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
-        logger.error(key)
+        logger.error("download_and_parse key " + key)
 
         hook = S3Hook(aws_conn_id=AWS_CONN_ID)
         raw_bytes = hook.get_key(key, bucket_name=BUCKET_NAME).get()["Body"].read()
