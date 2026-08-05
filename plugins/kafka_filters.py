@@ -32,10 +32,10 @@ def match_ceph_bucket_event(message: Message, bucket: str, key_prefix: str) -> d
     S3-style event body (`Records[].s3.bucket.name`, `Records[].s3.object.key`,
     `Records[].eventName`) — the same shape AWS S3 event notifications use.
     """
-    logger.error(bucket)
-    logger.error(key_prefix)
+    logger.error("bucket ", bucket)
+    logger.error("key_prefix ", key_prefix)
     envelope = json.loads(message.value().decode("utf-8"))
-    logger.error(str(envelope))
+    logger.error("envelope: ", str(envelope))
     body = envelope.get("data", envelope)
 
     for record in body.get("Records", []):
@@ -44,12 +44,10 @@ def match_ceph_bucket_event(message: Message, bucket: str, key_prefix: str) -> d
         object_key = s3_info.get("object", {}).get("key")
         bucket_name = s3_info.get("bucket", {}).get("name")
 
-        if (
-            event_name.startswith("s3:ObjectCreated")
-            and bucket_name == bucket
-            and object_key
-            and object_key.startswith(key_prefix)
-        ):
+        key_prefix_mask = (
+            object_key.startswith(key_prefix) if (bool(key_prefix) and isinstance(key_prefix, str)) else True
+        )
+        if event_name.startswith("s3:ObjectCreated") and bucket_name == bucket and object_key and key_prefix_mask:
             return {"bucket": bucket_name, "key": object_key, "event_name": event_name}
 
     return None
