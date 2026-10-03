@@ -115,9 +115,9 @@ anyio==4.14.2 \
     #   httpx
     #   starlette
     #   watchfiles
-apache-airflow==3.3.0 \
-    --hash=sha256:59ff9185c4292788dc422d9de5c384ca7b1fc11748ec88a10629d28b3385f3df \
-    --hash=sha256:6e72fc78e60383ba1c807c15f57ea44d46a2f503dff1be5a8dd571c333076303
+apache-airflow==3.3.1 \
+    --hash=sha256:0c047c0a0415b100d2966b35d0f0c191013dc996e7645023178c770296ce8602 \
+    --hash=sha256:a62ee9c46b7b8c919a46a88ee9346e0b36bc4ff10d6f9ac7cde5a6165da52164
     # via
     #   airflow-dags
     #   apache-airflow-providers-amazon
